@@ -30,7 +30,7 @@ function HomePage() {
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-light bg-info">
         <div className="container">
           {/* Brand */}
           <Link className="navbar-brand fw-bold" to="/">BookBazaar</Link>
@@ -51,8 +51,11 @@ function HomePage() {
           {/* Collapsible Buttons */}
           <div className="collapse navbar-collapse" id="navbarNav">
             <div className="ms-auto d-flex align-items-center">
+              <Link to="/dashboard" className="btn btn-info mx-2">Go to Dashboard</Link>
               <Link to="/login" className="btn btn-primary me-2">Login</Link>
               <Link to="/register" className="btn btn-success">Register</Link>
+              <Link to="/about" className="nav-link">About Us</Link>
+
             </div>
           </div>
         </div>
