@@ -56,8 +56,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
+import Dashboard from './components/Dashboard';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
+import AboutUs from './components/AboutUs';
+
+
+
 
 function App() {
   return (
@@ -66,6 +71,9 @@ function App() {
         <Route path="/*" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
     </Router>
   );
