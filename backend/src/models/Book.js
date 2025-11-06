@@ -51,7 +51,7 @@ const Book = sequelize.define(
     coverImageUrl: {
       type: DataTypes.STRING(1000),
       allowNull: true,
-      validate: { isUrl: true },
+     // validate: { isUrl: true },
     },
     publishedAt: {
       type: DataTypes.DATE,
