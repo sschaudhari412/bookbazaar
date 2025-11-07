@@ -10,4 +10,8 @@ router.post("/buy", authenticateToken, OrderController.buy);
 router.post("/return", authenticateToken, OrderController.returnBook);
 router.get("/", authenticateToken, OrderController.getUserOrders);
 
+
+// 🧾 Admin: Get all orders
+router.get("/all", authenticateToken, OrderController.getAllOrders);
+
 export default router;

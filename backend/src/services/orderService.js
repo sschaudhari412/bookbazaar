@@ -63,4 +63,22 @@ export const orderService = {
     });
     return orders;
   },
+
+
+  async getAllOrders() {
+    // fetch all orders, including user and book info
+    return await Order.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["id", "name", "email"],
+        },
+        {
+          model: Book,
+          attributes: ["id", "title", "author", "price"],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+  },
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, Form, Table, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import AdminOrders from "./AdminOrders";
 
 function AdminDashboard() {
   const [books, setBooks] = useState([]);
@@ -9,6 +10,8 @@ function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [editingBook, setEditingBook] = useState(null);
   const [form, setForm] = useState({ title: "", author: "", description: "" });
+  const [showOrders, setShowOrders] = useState(false);
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -40,9 +43,13 @@ function AdminDashboard() {
     e.preventDefault();
     try {
       if (editingBook) {
-        await axios.put(`http://localhost:5000/api/books/${editingBook.id}`, form, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.put(
+          `http://localhost:5000/api/books/${editingBook.id}`,
+          form,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
       } else {
         await axios.post("http://localhost:5000/api/books", form, {
           headers: { Authorization: `Bearer ${token}` },
@@ -96,14 +103,44 @@ function AdminDashboard() {
 
   return (
     <div className="container mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      {/* <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>📘 Admin Dashboard - Manage Books</h2>
          {/* <Button variant="danger" onClick={handleLogout}>
           Logout
         </Button>  */}
+
+      {/*</div> */}
+
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2>📘 Admin Dashboard</h2>
+        <div>
+          {!showOrders && (
+            <Button
+              variant="info"
+              className="me-2"
+              onClick={() => setShowOrders(true)}
+            >
+              📦 View All Orders
+            </Button>
+          )}
+
+          {showOrders && (
+            <Button
+              variant="secondary"
+              className="me-2"
+              onClick={() => setShowOrders(false)}
+            >
+              ← Back to Books
+            </Button>
+          )}
+
+          {/* <Button variant="danger" onClick={handleLogout}>
+            Logout
+          </Button> */}
+        </div>
       </div>
 
-      <Button variant="primary" className="mb-3" onClick={handleAddBook}>
+      {/* <Button variant="primary" className="mb-3" onClick={handleAddBook}>
         ➕ Add New Book
       </Button>
 
@@ -158,6 +195,73 @@ function AdminDashboard() {
             )}
           </tbody>
         </Table>
+      )} */}
+
+      {showOrders ? (
+        // 🧾 Show Orders Page
+        <div>
+          <AdminOrders />
+        </div>
+      ) : (
+        // 📚 Default Books Page
+        <>
+          <Button variant="primary" className="mb-3" onClick={handleAddBook}>
+            ➕ Add New Book
+          </Button>
+
+          {loading ? (
+            <div className="text-center">
+              <Spinner animation="border" />
+            </div>
+          ) : (
+            <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.length > 0 ? (
+                  books.map((book) => (
+                    <tr key={book.id}>
+                      <td>{book.id}</td>
+                      <td>{book.title}</td>
+                      <td>{book.author}</td>
+                      <td>{book.description}</td>
+                      <td>
+                        <Button
+                          variant="warning"
+                          size="sm"
+                          className="me-2"
+                          onClick={() => handleEdit(book)}
+                        >
+                          ✏️ Edit
+                        </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => handleDelete(book.id)}
+                        >
+                          🗑 Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center text-muted">
+                      No books found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          )}
+        </>
       )}
 
       {/* 📋 Add/Edit Modal */}

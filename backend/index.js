@@ -11,7 +11,12 @@ import orderRoutes from "./src/routes/orderRoutes.js";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",  // frontend URL + port
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 // ✅ Connect Database

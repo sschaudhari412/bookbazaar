@@ -51,6 +51,22 @@ const OrderController = {
       res.status(400).json({ error: error.message });
     }
   },
+
+
+  async getAllOrders(req, res) {
+  try {
+    // Optionally, you can check role if stored in JWT
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied: Admins only" });
+    }
+
+    const orders = await orderService.getAllOrders();
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 };
 
 export default OrderController;
