@@ -86,10 +86,10 @@ export default function Allbooks() {
   };
 
   // ✅ Logout handler
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // remove token
-    navigate("/login"); // redirect to login page
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token"); // remove token
+  //   navigate("/login"); // redirect to login page
+  // };
 
   return (
     <div
