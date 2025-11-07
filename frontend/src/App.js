@@ -115,6 +115,13 @@ function Navbar() {
       <div className="container">
         {/* Brand Name */}
         <Link className="navbar-brand fw-bold" to="/">
+        <span
+            role="img"
+            aria-label="logo"
+            style={{ fontSize: "1.9rem", marginRight: "8px" }}
+          >
+            📚
+          </span>
           BookBazaar
         </Link>
 

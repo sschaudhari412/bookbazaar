@@ -3,17 +3,21 @@
 // src/components/RegisterPage.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/register', { name, email, password });
       alert(res.data.message || 'Registration successful!');
+      navigate("/login");
+
     } catch (error) {
       alert(error.response?.data?.message || 'Registration failed!');
     }

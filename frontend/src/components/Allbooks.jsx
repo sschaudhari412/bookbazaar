@@ -100,6 +100,7 @@ export default function Allbooks() {
         paddingBottom: "40px",
       }}
     >
+      
       {/* NAVBAR */}
       {/* <nav
         style={{
