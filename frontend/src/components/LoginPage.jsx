@@ -14,7 +14,7 @@ function LoginPage() {
       const res = await axios.post("http://localhost:5000/api/login", {
         email,
         password,
-        role, // ✅ include role
+        role, // include role
       });
 
       const user = res.data.user;
