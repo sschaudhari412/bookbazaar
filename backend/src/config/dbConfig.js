@@ -9,8 +9,9 @@ export const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
-    dialect: "mysql",
-    logging: false, // to keep console clean
+    port: process.env.DB_PORT,          // <-- IMPORTANT
+    dialect: process.env.DB_DIALECT,    // <-- IMPORTANT
+    logging: false,
   }
 );
 
@@ -19,8 +20,7 @@ export async function connectDb() {
     await sequelize.authenticate();
     console.log("✅ Database connected successfully");
 
-    // Auto-create tables
-    await sequelize.sync({ alter: true }); // alter = keeps schema updated
+    await sequelize.sync({ alter: true });
     console.log("✅ All models synchronized");
   } catch (error) {
     console.error("❌ Database connection error:", error);
